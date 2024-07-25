@@ -1,5 +1,4 @@
-﻿using System.Net.Sockets;
-using TestProject.Model;
+﻿using TestProject.Model;
 using TestProject.Service;
 
 namespace TestProject
@@ -11,7 +10,6 @@ namespace TestProject
             var ticket = new TicketModel();
             var claimService = new ClaimManager();
 
-            // Example input
             ticket.Crossed[0, 0] = true;
             ticket.Crossed[0, 1] = true;
             ticket.Crossed[0, 2] = true;

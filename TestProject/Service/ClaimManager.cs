@@ -1,4 +1,5 @@
-﻿using TestProject.Model;
+﻿using System.Globalization;
+using TestProject.Model;
 
 namespace TestProject.Service
 {
@@ -6,24 +7,18 @@ namespace TestProject.Service
     {
         public bool ValidateClaim(TicketModel ticketModel, string gameType)
         {
-            switch (gameType)
+            return gameType.Replace(" ", "").ToLower(CultureInfo.InvariantCulture) switch
             {
-                case "Top line":
-                    return IsLineCrossed(ticketModel, 0);
-                case "Middle line":
-                    return IsLineCrossed(ticketModel, 1);
-                case "Bottom line":
-                    return IsLineCrossed(ticketModel, 2);
-                case "Full house":
-                    return IsFullHouse(ticketModel);
-                case "Early five":
-                    return IsEarlyFive(ticketModel);
-                default:
-                    return false;
-            }
+                "topline" => IsLineCrossed(ticketModel, 0),
+                "middleline" => IsLineCrossed(ticketModel, 1),
+                "bottomline" => IsLineCrossed(ticketModel, 2),
+                "fullhouse" => IsFullHouse(ticketModel),
+                "earlyfive" => IsEarlyFive(ticketModel),
+                _ => false,
+            };
         }
 
-        private bool IsLineCrossed(TicketModel ticket, int line)
+        private static bool IsLineCrossed(TicketModel ticket, int line)
         {
             for (int i = 0; i < 5; i++)
             {
