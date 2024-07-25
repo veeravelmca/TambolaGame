@@ -20,41 +20,24 @@ namespace TestProject.Service
 
         private static bool IsLineCrossed(TicketModel ticket, int line)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                if (!ticket.Crossed[line, i])
-                    return false;
-            }
-            return true;
+            return Enumerable.Range(0, 5).All(i => ticket.Crossed[line, i]);
         }
 
-        private bool IsFullHouse(TicketModel ticket)
+        private static bool IsFullHouse(TicketModel ticket)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (!ticket.Crossed[i, j])
-                        return false;
-                }
-            }
-            return true;
+            bool allCrossed = Enumerable.Range(0, 3)
+                .SelectMany(i => Enumerable.Range(0, 5).Select(j => ticket.Crossed[i, j]))
+                .All(crossed => crossed);
+
+            return allCrossed;
         }
 
-        private bool IsEarlyFive(TicketModel ticket)
+        private static bool IsEarlyFive(TicketModel ticket)
         {
-            int count = 0;
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (ticket.Crossed[i, j])
-                        count++;
-                    if (count >= 5)
-                        return true;
-                }
-            }
-            return false;
+            return Enumerable.Range(0, 3)
+                .SelectMany(i => Enumerable.Range(0, 5).Where(j => ticket.Crossed[i, j]))
+                .Take(5)
+                .Count() >= 5;
         }
     }
 }
