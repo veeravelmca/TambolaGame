@@ -5,7 +5,7 @@ namespace TestProject.Service
 {
     public class ClaimManager
     {
-        public bool ValidateClaim(TicketModel ticketModel, string gameType)
+        public static bool ValidateClaim(TicketModel ticketModel, string gameType)
         {
             return gameType.Replace(" ", "").ToLower(CultureInfo.InvariantCulture) switch
             {

@@ -12,7 +12,6 @@ namespace TestProject
             while (true)
             {
                 var ticket = new TicketModel();
-                var claimManager = new ClaimManager();
                 ticket.Crossed[0, 0] = true;
                 ticket.Crossed[0, 1] = true;
                 ticket.Crossed[0, 2] = true;
@@ -27,7 +26,7 @@ namespace TestProject
                     Console.WriteLine("Exiting the Game...");
                     Environment.Exit(0);
                 }
-                bool isValid = claimManager.ValidateClaim(ticket, gameType);
+                bool isValid = ClaimManager.ValidateClaim(ticket, gameType);
                 Console.WriteLine(isValid ? "Accepted" : "Rejected");
             }
         }
